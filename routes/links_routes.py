@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 import sqlite3
 
 links_bp = Blueprint('links_bp', __name__)
@@ -6,6 +6,7 @@ links_bp = Blueprint('links_bp', __name__)
 # TODO Remove the palavra_chave database and include a new column in the links database to store the Connection required, related to a new table pre requirements 
 @links_bp.route('/')
 def index():
+    format = request.args.get('format', default='html')  # Obtém o parâmetro 'format', padrão para 'html' se não estiver presente
     # Lógica para exibir todas as links
     conn = sqlite3.connect('links.db')
     cursor = conn.cursor()
@@ -13,7 +14,10 @@ def index():
     rows = cursor.fetchall()
     conn.close()
 
-    links = [{'id': row[0], 'url': row[1], 'descricao': row[2], 'palavras_chave': row[3]} for row in rows] # Criar lista de objetos de link
+    links = [{'id': row[0], 'url': row[1], 'descricao': row[2].replace('\n', ' '), 'palavras_chave': row[3]} for row in rows] # Criar lista de objetos de link
+    if format == 'json':
+        return jsonify(links)  # Retorna os dados no formato JSON
+    
     return render_template('links.html', links=links)
     pass
 

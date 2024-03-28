@@ -21,7 +21,8 @@ def index():
     rows = cursor.fetchall()
     conn.close()
 
-    links = [{'id': row[0], 'url': row[1], 'descricao': row[2], 'palavras_chave': row[3]} for row in rows] # Criar lista de objetos de link
+    links = [{'id': row[0], 'url': row[1], 'descricao': row[2].replace('\n', ' '), 'palavras_chave': row[3]} for row in rows] # Criar lista de objetos de link
     return render_template('pagina_links.html', links=links)
+
 if __name__ == '__main__':
     app.run(debug=True)

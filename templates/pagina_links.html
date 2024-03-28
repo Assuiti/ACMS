@@ -4,14 +4,14 @@
 {% block content %}
     <h1>List of content </h1>
     
-    <!-- TODO Adjust filter -->
     <!-- Campo de busca por palavra-chave -->
-    <input type="text" id="searchInput" placeholder="Digite uma palavra-chave">
+    <input type="text" id="searchInput" placeholder="Type...">
 
     <!-- Menu suspenso para escolha do campo de filtro -->
     <select id="searchField">
         <option value="descricao">Description</option>
         <option value="palavras_chave">Keyword</option>
+        <option value="url">URL</option>
     </select>
 
     <!-- Tabela para exibir os links -->
@@ -43,7 +43,7 @@
 
         // Função para buscar os links da API
         function fetchLinks() {
-            fetch('/links')
+            fetch('/links?format=json') 
                 .then(response => response.json())
                 .then(links => renderLinks(links))
                 .catch(error => console.error('Erro ao buscar os links:', error));
