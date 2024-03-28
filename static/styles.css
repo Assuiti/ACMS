@@ -1,0 +1,56 @@
+/* TODO Review the whole CSS *
+/* Estilos para o menu de navegação */
+header {
+    background-color: #092c77; /* Cor de fundo do cabeçalho */
+    color: #fff; /* Cor do texto do cabeçalho */
+    padding: 10px 20px; /* Espaçamento interno do cabeçalho */
+    margin-bottom: 20px; /* Margem inferior para separar do conteúdo */
+}
+
+nav ul {
+    list-style-type: none; /* Remover os marcadores de lista */
+    padding: 0; /* Remover o preenchimento padrão da lista */
+}
+
+nav ul li {
+    display: inline; /* Exibir os itens da lista na mesma linha */
+    margin-right: 20px; /* Espaçamento entre os itens da lista */
+}
+
+nav ul li a {
+    color: #fff; /* Cor do texto dos links */
+    text-decoration: none; /* Remover sublinhado dos links */
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* Adicionar sublinhado ao passar o mouse sobre os links */
+}
+
+/* Estilos para as tabelas */
+table {
+    border-collapse: collapse; /* Colapsar as bordas das células da tabela */
+    width: 100%; /* Largura da tabela */
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* Borda de todas as células da tabela */
+}
+
+th, td {
+    padding: 8px; /* Espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto nas células */
+}
+
+th {
+    background-color: #f2f2f2; /* Cor de fundo do cabeçalho da tabela */
+    color: #333; /* Cor do texto do cabeçalho da tabela */
+}
+.input {
+    width: 500; /* Defina a largura desejada para os inputs */
+}
+.label {
+    display: inline-block;
+    width: 150px; /* Defina a largura desejada para os rótulos */
+    text-align: right; /* Alinhe o texto dos rótulos à direita */
+    margin-right: 10px; /* Adicione um espaçamento à direita dos rótulos */
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tag</title>
+</head>
+<body>
+    <h1>Editar Tag</h1>
+
+    <form action="{{ url_for('tags_bp.edit_tag', tag_id=tag_id) }}" method="post">
+        <label for="novo_nome">Novo Nome da Tag:</label><br>
+        <input type="text" id="novo_nome" name="novo_nome" value="{{ nome }}"><br><br>
+        <input type="submit" value="Salvar Alterações">
+    </form>
+</body>
+</html>

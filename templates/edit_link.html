@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Link</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Edit Link</h1>
+        <form action="{{ url_for('links_bp.edit_link', link_id=link_id) }}" method="POST" class="form">
+            <label for="nova_url" class="label">New URL:</label>
+            <input type="text" id="nova_url" name="nova_url" value="{{ url }}" class="input"><br>
+            
+            <label for="nova_descricao" class="label">New description:</label>
+            <textarea id="nova_descricao" name="nova_descricao">{{ descricao }}</textarea><br><br>            
+        
+            <label for="nova_palavras_chave" class="label">New keyword:</label>
+            <input type="text" id="nova_palavras_chave" name="nova_palavras_chave" value="{{ palavras_chave }}" class="input"><br>
+        
+            <input type="submit" value="Save" class="button">
+        </form>
+    </div>
+</body>
+</html>

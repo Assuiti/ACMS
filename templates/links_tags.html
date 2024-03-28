@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Links e Tags{% endblock %}
+
+{% block content %}
+    <h1>Links e Tags</h1>
+
+    <!-- Formulário de inserção de nova links_tags -->
+    <h2>Adicionar nova links_tags</h2>
+    <form action="{{ url_for('links_tags_bp.add_link_tag') }}" method="post">
+        <label for="link_id">Link ID:</label>
+        <input type="text" id="link_id" name="link_id"><br><br>
+
+        <label for="tag_id">Tag ID:</label>
+        <input type="text" id="tag_id" name="tag_id"><br><br>
+
+        <input type="submit" value="Adicionar relacionamento">
+    </form>
+
+    <br>
+
+    <!-- Adjust this class -->
+    <!-- Tabela de links_tags existentes -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Link ID</th>
+                <th>Tag ID</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td>{{ row.link_id }}</td>
+                    <td>{{ row.tag_id }}</td>
+                    <td><a href="{{ url_for('links_tags_bp.edit_link_tag', link_id=row.id) }}">Editar</a></td>
+                    <td><a href="{{ url_for('links_tags_bp.delete_link_tag', link_id=row.id) }}">Excluir</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

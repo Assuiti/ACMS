@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Links da Instituição{% endblock %}
+
+{% block content %}
+    <h1>List of content </h1>
+    
+    <!-- TODO Adjust filter -->
+    <!-- Campo de busca por palavra-chave -->
+    <input type="text" id="searchInput" placeholder="Digite uma palavra-chave">
+
+    <!-- Menu suspenso para escolha do campo de filtro -->
+    <select id="searchField">
+        <option value="descricao">Description</option>
+        <option value="palavras_chave">Keyword</option>
+    </select>
+
+    <!-- Tabela para exibir os links -->
+    <table id="linkTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>URL</th>
+                <th>Description</th>
+                <th>Keyword</th>
+            </tr>
+        </thead>
+        <tbody id="linkList">
+            {% for link in links %}
+                <tr>
+                    <td>{{ link.id }}</td>
+                    <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
+                    <td>{{ link.descricao }}</td>
+                    <td>{{ link.palavras_chave }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchLinks(); // Chama a função fetchLinks() quando o DOM é carregado
+        });
+
+        // Função para buscar os links da API
+        function fetchLinks() {
+            fetch('/links')
+                .then(response => response.json())
+                .then(links => renderLinks(links))
+                .catch(error => console.error('Erro ao buscar os links:', error));
+        }
+
+        // Função para renderizar os links
+        function renderLinks(links) {
+            var linkList = document.getElementById("linkList");
+            linkList.innerHTML = ""; // Limpa a lista de links antes de renderizar
+
+            var searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            var searchField = document.getElementById("searchField").value; // Obtém o campo de filtro selecionado
+
+            // Filtra os links com base no campo escolhido e na palavra-chave
+            var filteredLinks = links.filter(function(link) {
+                return link[searchField].toLowerCase().includes(searchTerm);
+            });
+
+            // Adiciona links filtrados à lista
+            filteredLinks.forEach(function(link) {
+                var row = document.createElement("tr");
+                
+                var idCell = document.createElement("td");
+                idCell.textContent = link.id;
+                row.appendChild(idCell);
+
+                var urlCell = document.createElement("td");
+                var urlLink = document.createElement("a");
+                urlLink.href = link.url;
+                urlLink.target = "_blank";
+                urlLink.textContent = link.url;
+                urlCell.appendChild(urlLink);
+                row.appendChild(urlCell);
+
+                var descricaoCell = document.createElement("td");
+                descricaoCell.textContent = link.descricao;
+                row.appendChild(descricaoCell);
+
+                var palavrasChaveCell = document.createElement("td");
+                palavrasChaveCell.textContent = link.palavras_chave;
+                row.appendChild(palavrasChaveCell);
+
+                linkList.appendChild(row);
+            });
+        }
+
+        // Chama a função renderLinks quando o usuário digita no campo de busca
+        document.getElementById("searchInput").addEventListener("input", function() {
+            fetchLinks();
+        }); 
+
+        // Chama a função renderLinks quando o usuário seleciona um campo de filtro
+        document.getElementById("searchField").addEventListener("change", function() {
+            fetchLinks();
+        });
+    </script>
+{% endblock %}

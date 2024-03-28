@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Tags - Minha Aplicação{% endblock %}
+
+{% block content %}
+<h1>Add tag</h1>
+    <form method="POST" action="{{ url_for('tags_bp.add_tag') }}">
+        <!-- Campo para adicionar nova tag -->
+        <label for="nova_tag">New Tag:</label>
+        <input type="text" id="nova_tag" name="nova_tag">
+        <button type="submit">Add</button>
+    </form>
+    <br>
+
+    <h2>Tags Existentes:</h2>
+    <!-- Exibir tags existentes em uma tabela -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>  <!-- Cabeçalho para a coluna de excluir -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+                <tr>
+                    <td>{{ tag.id }}</td>
+                    <td>{{ tag.nome }}</td>
+                    <td><a href="{{ url_for('tags_bp.edit_tag', tag_id=tag.id) }}">edit</a></td>
+                    <td><a href="{{ url_for('tags_bp.delete_tag', tag_id=tag.id) }}">delete</a></td> <!-- Link para a rota de exclusão -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
