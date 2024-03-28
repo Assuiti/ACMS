@@ -11,13 +11,13 @@
         <h1 class="title">Edit Link</h1>
         <form action="{{ url_for('links_bp.edit_link', link_id=link_id) }}" method="POST" class="form">
             <label for="nova_url" class="label">New URL:</label>
-            <input type="text" id="nova_url" name="nova_url" value="{{ url }}" class="input"><br>
+            <input type="text" id="nova_url" name="nova_url" value="{{ url }}" required class="input"> <br>
             
             <label for="nova_descricao" class="label">New description:</label>
-            <textarea id="nova_descricao" name="nova_descricao">{{ descricao }}</textarea><br><br>            
+            <textarea id="nova_descricao" name="nova_descricao" required>{{ descricao }} </textarea><br><br>            
         
-            <label for="nova_palavras_chave" class="label">New keyword:</label>
-            <input type="text" id="nova_palavras_chave" name="nova_palavras_chave" value="{{ palavras_chave }}" class="input"><br>
+            <label for="nova_palavras_chave" class="label">New name:</label>
+            <input type="text" id="nova_palavras_chave" name="nova_palavras_chave" value="{{ palavras_chave }}" required class="input"><br>
         
             <input type="submit" value="Save" class="button">
         </form>

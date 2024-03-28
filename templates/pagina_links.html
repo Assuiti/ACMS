@@ -19,18 +19,18 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Name</th>
                 <th>URL</th>
                 <th>Description</th>
-                <th>Keyword</th>
             </tr>
         </thead>
         <tbody id="linkList">
             {% for link in links %}
                 <tr>
                     <td>{{ link.id }}</td>
+                    <td>{{ link.palavras_chave }}</td>
                     <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
                     <td>{{ link.descricao }}</td>
-                    <td>{{ link.palavras_chave }}</td>
                 </tr>
             {% endfor %}
         </tbody>

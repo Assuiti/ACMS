@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 import sqlite3
 
 links_tags_bp = Blueprint('links_tags_bp', __name__)
@@ -8,12 +8,28 @@ def index():
     # Lógica para exibir todas as links_tags
     conn = sqlite3.connect('links.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT id, link_id, tag_id FROM links_tags')
-    rows = cursor.fetchall()
+    cursor.execute('''SELECT links_tags.id, links_tags.link_id, links_tags.tag_id, links.palavras_chave, tags.nome
+                      FROM links_tags
+                   inner join links on links_tags.link_id = links.id
+                   inner join tags on links_tags.tag_id = tags.id''')
+    link_tag_rows = cursor.fetchall()
+
+    cursor.execute('''SELECT id, palavras_chave FROM links''')
+    link_rows = cursor.fetchall()
+
+    cursor.execute('''SELECT id, nome FROM tags''')
+    tag_rows = cursor.fetchall()
+
     conn.close()
 
-    links_tags = [{'id': row[0], 'link_id': row[1], 'tag_id': row[2]} for row in rows] # Criar lista de objetos de link_tag
-    return render_template('links_tags.html', rows=links_tags)
+
+    links_tags = [{'id': link_tag_row[0], 'link_id': link_tag_row[1], 'tag_id': link_tag_row[2], 'palavras_chave':link_tag_row[3], 'tagNome':link_tag_row[4]} for link_tag_row in link_tag_rows] # Criar lista de objetos de link_tag
+
+    # Coletar todos os valores em uma lista separada
+    links = [{'id': link_row[0], 'url': link_row[1]} for link_row in link_rows]  # Criar lista de pares id e url
+    tags = [{'id': tag_row[0], 'nome': tag_row[1]} for tag_row in tag_rows] 
+
+    return render_template('links_tags.html', rows=links_tags,links=links,tags=tags)
 
 @links_tags_bp.route('/add',  methods=['GET', 'POST'])
 def add_link_tag():

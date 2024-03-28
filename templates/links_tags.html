@@ -5,13 +5,21 @@
     <h1>Links e Tags</h1>
     <!-- Adjust links and tabs -->
     <!-- Formulário de inserção de nova links_tags -->
-    <h2>Adicionar nova links_tags</h2>
+    <h2>Add links tags relationship</h2>
     <form action="{{ url_for('links_tags_bp.add_link_tag') }}" method="post">
-        <label for="link_id">Link ID:</label>
-        <input type="text" id="link_id" name="link_id"><br><br>
+        <label for="link_id">Link:</label>
+        <select id="link_id" name="link_id">
+            {% for link in links %}
+                <option value="{{ link.id }}">{{ link.url }}</option>
+            {% endfor %}
+        </select><br><br>
 
-        <label for="tag_id">Tag ID:</label>
-        <input type="text" id="tag_id" name="tag_id"><br><br>
+        <label for="tag_id">Tag:</label>
+        <select id="tag_id" name="tag_id">
+            {% for tag in tags %}
+                <option value="{{ tag.id }}">{{ tag.nome }}</option>
+            {% endfor %}
+        </select><br><br>
 
         <input type="submit" value="Adicionar relacionamento">
     </form>
@@ -24,7 +32,9 @@
         <thead>
             <tr>
                 <th>Link ID</th>
+                <th>Link</th>
                 <th>Tag ID</th>
+                <th>Tag</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
@@ -33,7 +43,9 @@
             {% for row in rows %}
                 <tr>
                     <td>{{ row.link_id }}</td>
+                    <td>{{ row.palavras_chave }}</td>
                     <td>{{ row.tag_id }}</td>
+                    <td>{{ row.tagNome }}</td>
                     <td><a href="{{ url_for('links_tags_bp.edit_link_tag', link_id=row.id) }}">Editar</a></td>
                     <td><a href="{{ url_for('links_tags_bp.delete_link_tag', link_id=row.id) }}">Excluir</a></td>
                 </tr>

@@ -7,7 +7,7 @@
     <form method="POST" action="{{ url_for('tags_bp.add_tag') }}">
         <!-- Campo para adicionar nova tag -->
         <label for="nova_tag">New Tag:</label>
-        <input type="text" id="nova_tag" name="nova_tag">
+        <input type="text" id="nova_tag" name="nova_tag" required>
         <button type="submit">Add</button>
     </form>
     <br>

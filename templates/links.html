@@ -6,13 +6,13 @@
     <h2>Add new link:</h2>
     <form method="POST" action="{{ url_for('links_bp.add_link') }}">
         <label for="url">URL:</label><br>
-        <input type="text" id="url" name="url"><br><br>
+        <input type="text" id="url" name="url" required><br><br>
         
         <label for="descricao">Description:</label><br>
-        <textarea id="descricao" name="descricao"></textarea><br><br>
+        <textarea id="descricao" name="descricao" required></textarea><br><br>
         
-        <label for="palavras_chave">Keyword:</label><br>
-        <input type="text" id="palavras_chave" name="palavras_chave"><br><br>        
+        <label for="palavras_chave">Name:</label><br>
+        <input type="text" id="palavras_chave" name="palavras_chave" required><br><br>        
 
         <button type="submit">Add</button>
     </form>
@@ -21,9 +21,9 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Name</th>
                 <th>URL</th>
                 <th>Description</th>
-                <th>Keyword</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
@@ -32,9 +32,9 @@
             {% for link in links %}
                 <tr>
                     <td>{{ link.id }}</td>
+                    <td>{{ link.palavras_chave }}</td>
                     <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
                     <td>{{ link.descricao }}</td>
-                    <td>{{ link.palavras_chave }}</td>
                     <td><a href="{{ url_for('links_bp.edit_link', link_id=link.id) }}">Editar</a></td>
                     <td><a href="{{ url_for('links_bp.delete_link', link_id=link.id) }}">Excluir</a></td>
                 </tr>

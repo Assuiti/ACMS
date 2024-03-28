@@ -15,6 +15,8 @@ app.register_blueprint(links_tags_bp, url_prefix='/links_tags')
 def index():
     # Lógica para exibir todas as links
     # TODO: Create a DatabaseManager class to handle database connection
+    # Adjust palavras_chave name, replace to nome
+    # Criar filtro por tag
     conn = sqlite3.connect('links.db')
     cursor = conn.cursor()
     cursor.execute('SELECT id, url, descricao, palavras_chave FROM links')
