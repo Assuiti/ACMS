@@ -1,4 +1,4 @@
 # Ignorar arquivos relacionados ao MySQL
 *.db
 .vscode/
-__pycache__/
+.+__pycache__/
